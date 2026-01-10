@@ -1,4 +1,4 @@
-name: CI + CD Pipeline
+name: CD Deploy to VPS (SCP)
 
 on:
   push:
@@ -6,23 +6,18 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Step
-        run: echo "Build successful"
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          host: 82.112.238.89
+          username: root
+          key: ${{ secrets.VPS }}
+          source: "."
+          target: "/var/www/html"
