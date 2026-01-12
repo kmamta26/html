@@ -1,4 +1,4 @@
-name: CD Deploy to VPS (SCP)
+name: CD Deploy to VPS
 
 on:
   push:
@@ -19,6 +19,5 @@ jobs:
           host: 82.112.238.89
           username: root
           key: ${{ secrets.VPS }}
-          source: "."
-          target: "/var/www/html"
-          strip_components: 1
+          source: .
+          target: /var/www/html
