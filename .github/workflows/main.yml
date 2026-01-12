@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: CD Deploy to VPS (SCP)
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Copy files to VPS
@@ -18,10 +18,7 @@ jobs:
         with:
           host: 82.112.238.89
           username: root
-          key: ${{ secrets.VPS_SSH_03 }}
-          port: 22
-          source: .
-          target: /var/www/html
-
-
-
+          key: ${{ secrets.VPS }}
+          source: "."
+          target: "/var/www/html"
+          strip_components: 1
